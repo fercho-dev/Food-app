@@ -9,7 +9,7 @@ const router = Router();
 
 // get all recipes || or search
 router.get('/', (req, res, next) => {
-    let apiRecipesPromise = axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=2&addRecipeInformation=true`)
+    let apiRecipesPromise = axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=5&addRecipeInformation=true`)
 
     let searchQuery = req.query.search
     let dbRecipesPromise
@@ -65,7 +65,10 @@ router.get('/', (req, res, next) => {
             }
         })
         let allRecipes = [...filteredDbRecipes, ...filteredApiRecipes]
-        res.send(allRecipes)
+        if(allRecipes.length === 0) {
+            return res.status(204).send(allRecipes)
+        }
+        res.status(200).send(allRecipes)
     })
     .catch((error) => {
         next(error)
@@ -94,7 +97,7 @@ router.get('/:id', async (req, res, next) => {
                 diets: recipe.diets
             }
         }
-        res.send(filteredRecipe)
+        res.status(200).send(filteredRecipe)
     } catch(error) {
         next(error)
     }
@@ -111,7 +114,7 @@ router.post('/', async (req, res, next) => {
             cooking_steps: cooking_steps.toLowerCase(),
             image,
         })
-        res.send(newRecipe)
+        res.status(201).send(newRecipe)
     } catch(error) {
         next(error)
     }  
@@ -123,7 +126,7 @@ router.post('/:recipeId/:dietId', async (req, res, next) => {
         const { recipeId, dietId } = req.params
         const recipe = await Recipes.findByPk(recipeId)
         recipe.addDiet(dietId)
-        res.sendStatus(200)
+        res.sendStatus(201)
     } catch(error) {
         next(error)
     }
