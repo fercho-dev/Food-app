@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { Diets, Recipes } = require('../db')
 const { Op } = require('sequelize')
+const axios = require('axios')
 
 
 const router = Router();
@@ -10,9 +11,11 @@ router.get('/', async (req, res, next) => {
     try {
         const dietsRes = await Diets.findAll({ include: Recipes })
         if(dietsRes.length === 0) {
-            return res.status(204).send(dietsRes)
+            let dietsCreated = await axios.post('http://localhost:3001/diets/init')
+            res.status(200).send(dietsCreated.data)
+        } else {
+            res.status(200).send(dietsRes)
         }
-        res.status(200).send(dietsRes)
     } catch(error) {
         next(error)
     }
@@ -52,7 +55,7 @@ router.post('/', (req, res, next) => {
 // post init diets
 router.post('/init', async (req, res, next) => {
     try {
-        const dietsInit = ['gluten free', 'ketogenic', 'vegetarian', 'lacto-vegetarian', 'ovo-vegetarian', 'vegan', 'pescetarian', 'paleo', 'primal', 'low fodmap', 'whole30']
+        const dietsInit = ['gluten free', 'ketogenic', 'vegetarian', 'lacto', 'ovo', 'vegan', 'pescetarian', 'paleolithic', 'primal', 'low fodmap', 'whole 30']
         const dietsCreated = []
         
         for(item of dietsInit) {

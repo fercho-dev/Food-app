@@ -1,8 +1,9 @@
-import { FETCH_RECIPES, SEARCH_RECIPES, SORT } from '../actions'
+import { FETCH_RECIPES, SEARCH_RECIPES, FETCH_DIETS, SORT } from '../actions'
 
 const initialState = {
     recipes: [],
-    filteredRecipes: []
+    filteredRecipes: [],
+    diets: []
 }
 
 export default function reducer(state = initialState, action) {
@@ -17,6 +18,11 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 filteredRecipes: action.payload
+            }
+        case FETCH_DIETS:
+            return {
+                ...state,
+                diets: action.payload
             }
         case SORT:
             let orderedRecipes = [...state.recipes]

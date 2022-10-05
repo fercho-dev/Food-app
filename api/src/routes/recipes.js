@@ -3,13 +3,15 @@ const axios = require('axios')
 const { Recipes, Diets } = require('../db')
 const { API_KEY } = process.env;
 const { Op } = require('sequelize')
+const express = require('express')
 
 
 const router = Router();
+router.use(express.json());
 
 // get all recipes || or search
 router.get('/', (req, res, next) => {
-    let apiRecipesPromise = axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=5&addRecipeInformation=true`)
+    let apiRecipesPromise = axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=10&addRecipeInformation=true`)
 
     let searchQuery = req.query.search
     let dbRecipesPromise
@@ -106,13 +108,13 @@ router.get('/:id', async (req, res, next) => {
 // Crear recipe
 router.post('/', async (req, res, next) => {
     try {
-        const {name, description, health_score, cooking_steps, image} = req.body;
+        const {name, description, health_score, cooking_steps, image, diets} = req.body;
         const newRecipe = await Recipes.create({
             name: name.toLowerCase(),
             description: description.toLowerCase(),
             health_score,
             cooking_steps: cooking_steps.toLowerCase(),
-            image,
+            image
         })
         res.status(201).send(newRecipe)
     } catch(error) {

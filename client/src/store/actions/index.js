@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const FETCH_RECIPES = 'FETCH_RECIPES';
 export const SEARCH_RECIPES = 'SEARCH_RECIPES';
+export const FETCH_DIETS = 'FETCH_DIETS';
 export const SORT = 'SORT';
 
 export function fetchRecipes() {
@@ -26,6 +27,21 @@ export function searchRecipes(search) {
             dispatch({
                 type: SEARCH_RECIPES,
                 payload: recipes.data
+            })
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+}
+
+export function fetchDiets() {
+    return function(dispatch) {
+        axios.get('http://localhost:3001/diets')
+        .then((diets) => {
+            dispatch({
+                type: FETCH_DIETS,
+                payload: diets.data
             })
         })
         .catch((error) => {
