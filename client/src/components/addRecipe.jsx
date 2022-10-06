@@ -11,6 +11,8 @@ export default function AddRecipe() {
         dispatch(fetchDiets())
     }, [])
 
+    const [newDietInput, setNewDietInput] = useState('')
+
     const [dietsSelected, setDietsSelected] = useState({})
 
     const [inputs, setInputs] = useState({
@@ -99,20 +101,37 @@ export default function AddRecipe() {
 
     async function submitForm(e) {
         e.preventDefault()
-        let recipeCreated = await axios.post('http://localhost:3001/recipes', {
-            name: inputs.name,
-            description: inputs.description,
-            health_score: +inputs.healthScore,
-            cooking_steps: inputs.cookingSteps,
-            image: inputs.image,
-        })
-        const { id } = recipeCreated.data
-        let dietsIds = []
-        for(let diet in dietsSelected) {
-            let response = await axios.get(`http://localhost:3001/diets/${diet}`)
-            let dietId = response.data[0].id
-            await axios.post(`http://localhost:3001/recipes/${id}/${dietId}`)
+        try {
+            let recipeCreated = await axios.post('http://localhost:3001/recipes', {
+                name: inputs.name,
+                description: inputs.description,
+                health_score: +inputs.healthScore,
+                cooking_steps: inputs.cookingSteps,
+                image: inputs.image,
+            })
+            const { id } = recipeCreated.data
+            for(let diet in dietsSelected) {
+                let response = await axios.get(`http://localhost:3001/diets/${diet}`)
+                let dietId = response.data[0].id
+                await axios.post(`http://localhost:3001/recipes/${id}/${dietId}`)
+            }
+        } catch(error) {
+            alert('Ups, something went wrong. Try again.')
         }
+    }
+
+    function newDietChange(e) {
+        setNewDietInput(e.target.value);
+    }
+
+    function addDiet() {
+        axios.post('http://localhost:3001/diets', {name: newDietInput})
+        .then((response) => {
+            dispatch(fetchDiets())
+        })
+        .catch((error) => {
+            alert('Seems like that diet already exists')
+        })
     }
 
     return <form onSubmit={submitForm}>
@@ -136,6 +155,11 @@ export default function AddRecipe() {
                 <input type="checkbox" name={diet.name} id={diet.id} onChange={handleDietsChecked}/>
             </div>
             })}
+            <div>
+                <label htmlFor="newDiet">Add new diet: </label>
+                <input type="text" name='newDiet' id='newDiet' onChange={newDietChange}/>
+                <p onClick={addDiet}>+</p>
+            </div>
         </div>
 
         <label htmlFor="cookingSteps">Cooking steps: </label>
