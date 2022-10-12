@@ -13,6 +13,10 @@ export default function RecipeDetail() {
         .then((response) => {
             setRecipe(response.data)
         })
+        .catch((error) => {
+            alert(`Ups, we couldnt get that recipe\n${error}`)
+            window.location.href = "/recipes";
+        })
     }, [])
 
     return <div>

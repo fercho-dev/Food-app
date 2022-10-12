@@ -6,11 +6,9 @@ import { useDispatch } from 'react-redux';
 export default function Navbar() {
     const dispatch = useDispatch()
     function communityBtn() {
-        console.log('were in community');
         dispatch(communityRecipes())
     }
     function recipesBtn() {
-        console.log('were in recipes');
         dispatch(reloadRecipes())
     }
     return <header>
@@ -22,7 +20,7 @@ export default function Navbar() {
                 <span className='box'>Recipes</span>
             </NavLink>
             <NavLink onClick={communityBtn} className='link' to="/recipes/community" activeClassName="active" >
-                <span className='box'>Community recipes</span>
+                <span className='box'>Community</span>
             </NavLink>
         </div>
         <NavLink className='link linkCreate' to="/recipes/create" activeClassName="active">
