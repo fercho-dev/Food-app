@@ -1,4 +1,124 @@
+.form-header {
+    padding: 20px 0 0 20px;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-container > figure {
+    width: 70%;
+    padding: 0 10% 10% 10%;
+}
+
+.form-container > figure > img {
+    width: 100%;
+    width: 100%;
+}
+
 form {
     display: flex;
     flex-direction: column;
+    width: 50%;
+    margin-left: 40px;
+}
+
+.form-label {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-top: 16px;
+    display: inline-block;
+    width: 50%;
+}
+
+.form-input {
+    display: inline-block;
+    height: 24px;
+    width: 70%;
+    padding-left: 4px;
+    font-size: 1.4rem;
+    border-radius: 8px;
+    border: solid 0.8px gray;
+    opacity: 50%;
+}
+
+.submit-btn {
+    background: #FFA299;
+    color: white;
+    font-size: 1.8rem;
+    border: none;
+    border-radius: 20px;
+    display: inline-block;
+    width: 150px;
+    height: 40px;
+    margin: 32px 0 0 100px;
+    cursor: not-allowed;
+}
+
+.submit-btn-active {
+    background-color: var(--red-color);
+    cursor: pointer;
+}
+
+.diets-checkboxes {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 12px;
+}
+
+.diets-checkboxes > .diet-option {
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.diets-checkboxes > .diet-option > label {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.diets-checkboxes > .diet-option > input {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    cursor: pointer;
+    margin-left: 4px;
+}
+
+.diets-add-new {
+    margin: 16px 0 0 20px;
+    display: flex;
+    align-items: center;
+}
+
+.diets-add-new > label {
+    font-size: 1.2rem;
+    display: none;
+}
+
+.diets-add-new > input {
+    padding-left: 4px;
+    font-size: 1.2rem;
+    border: solid 0.8px gray;
+}
+
+.diets-add-new > span {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-left: 8px;
+    background-color: var(--red-color);
+    color: white;
+    border-radius: 4px;
+    display: inline-block;
+    width: 26px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.input-error {
+    font-size: 1rem;
+    color: red;
 }

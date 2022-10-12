@@ -1,0 +1,11 @@
+.filterByContainer {
+    margin-left: 20px;
+}
+
+.filterByContainer label {
+    font-size: 1.4rem;
+}
+
+.filterByContainer select {
+    font-size: 1rem;
+}

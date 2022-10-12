@@ -55,7 +55,7 @@ router.post('/', (req, res, next) => {
 // post init diets
 router.post('/init', async (req, res, next) => {
     try {
-        const dietsInit = ['gluten free', 'ketogenic', 'vegetarian', 'lacto', 'ovo', 'vegan', 'pescetarian', 'paleolithic', 'primal', 'low fodmap', 'whole 30']
+        const dietsInit = ['gluten free', 'ketogenic', 'lacto ovo vegetarian', 'vegan', 'paleolithic', 'primal', 'whole 30', 'dairy free']
         const dietsCreated = []
         
         for(item of dietsInit) {

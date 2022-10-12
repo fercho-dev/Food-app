@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router, response } = require('express');
 const axios = require('axios')
 const { Recipes, Diets } = require('../db')
 const { API_KEY } = process.env;
@@ -11,7 +11,7 @@ router.use(express.json());
 
 // get all recipes || or search
 router.get('/', (req, res, next) => {
-    let apiRecipesPromise = axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=10&addRecipeInformation=true`)
+    let apiRecipesPromise = axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
 
     let searchQuery = req.query.search
     let dbRecipesPromise
@@ -63,14 +63,42 @@ router.get('/', (req, res, next) => {
                 name: recipe.name,
                 health_score: recipe.health_score,
                 image: recipe.image,
-                diets: recipe.diets
+                diets: recipe.diets.map((diet) => {
+                    return diet.name
+                })
             }
         })
-        let allRecipes = [...filteredDbRecipes, ...filteredApiRecipes]
+        let allRecipes = [...filteredApiRecipes, ...filteredDbRecipes]
         if(allRecipes.length === 0) {
             return res.status(204).send(allRecipes)
         }
         res.status(200).send(allRecipes)
+    })
+    .catch((error) => {
+        next(error)
+    })
+})
+
+// get db recipes
+router.get('/db', (req, res, next) => {
+    Recipes.findAll({ include: Diets })
+    .then((response) => {
+        let dbRecipes = response
+        let filteredDbRecipes = dbRecipes.map((recipe) => {
+            return {
+                id: recipe.id,
+                name: recipe.name,
+                health_score: recipe.health_score,
+                image: recipe.image,
+                diets: recipe.diets.map((diet) => {
+                    return diet.name
+                })
+            }
+        })
+        if(filteredDbRecipes.length === 0) {
+            return res.status(204).send(filteredDbRecipes)
+        }
+        res.status(200).send(filteredDbRecipes)
     })
     .catch((error) => {
         next(error)
@@ -96,7 +124,8 @@ router.get('/:id', async (req, res, next) => {
                 health_score: recipe.healthScore,
                 cooking_steps: recipe.analyzedInstructions,
                 image: recipe.image,
-                diets: recipe.diets
+                diets: recipe.diets,
+                type: recipe.dishTypes
             }
         }
         res.status(200).send(filteredRecipe)

@@ -1,0 +1,51 @@
+.paginator-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0 10px 0;
+    border: solid 1px var(--yellow-color);
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.paginator > span {
+    font-size: 2.2rem;
+    color: var(--text-color);
+    margin: 0 10px;
+    cursor: pointer;
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+}
+
+.paginator > span > a {
+    text-decoration: none;
+}
+
+.paginator > span > img {
+    width: 15px;
+    height: 15px;
+}
+
+.active {
+    background-color: #F8DEB5;
+    border-radius: 4px;
+}
+
+.recipesPerPage {
+    margin-bottom: 40px;
+}
+
+.recipesPerPage > select {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    border: solid 1px var(--yellow-color);
+    border-radius: 8px;
+}

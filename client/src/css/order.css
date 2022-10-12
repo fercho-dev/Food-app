@@ -1,0 +1,11 @@
+.orderByContainer {
+    margin-left: 20px;
+}
+
+.orderByContainer label {
+    font-size: 1.4rem;
+}
+
+.orderByContainer select {
+    font-size: 1rem;
+}

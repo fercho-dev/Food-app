@@ -1,12 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Alkalami&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-size: 62.5%;
-}
-
 .text {
     width: 100vw;
     height: 100vh;
@@ -19,11 +10,11 @@
 .text h1 {
     font-size: 6rem;
     font-family: 'Alkalami', serif;
-    color: #EA2B1F;
+    color: var(--red-color);
 }
 
 .cta {
-    background-color: #F7D13B;
+    background-color: var(--yellow-color);
     height: 30px;
     width: 200px;
     display: flex;
@@ -40,7 +31,7 @@
     cursor: pointer;
     height: 35px;
     width: 210px;
-    background-color: #F6CD28;
+    background-color: var(--yellow-color);
     font-size: 2rem;
 }
 
@@ -48,6 +39,8 @@
     font-size: 1.8rem;
     margin-right: 10px;
     font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
 }
 
 .cta img {
@@ -66,13 +59,6 @@
    100% { transform:translate(0,0) }
  }
 
-.area{
-    background: #4e54c8;  
-    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
-    width: 100%;
-    height:100vh;
-}
-
 .circles{
     position: absolute;
     top: 0;
@@ -88,7 +74,6 @@
     list-style: none;
     width: 20px;
     height: 20px;
-    /* background: red; */
     animation: animate 25s linear infinite;
     bottom: -150px;
 }
@@ -117,7 +102,7 @@
 }
 
 .circles img:nth-child(4){
-    left: 40%;
+    left: 70%;
     width: 60px;
     height: 60px;
     animation-delay: 0s;
@@ -162,9 +147,9 @@
 }
 
 .circles img:nth-child(10){
-    left: 85%;
-    width: 150px;
-    height: 150px;
+    left: 15%;
+    width: 130px;
+    height: 130px;
     animation-delay: 0s;
     animation-duration: 11s;
 }
