@@ -7,4 +7,4 @@ Aplicación de recetas de comida para los amantes de la cocina. La información 
 
 ## Archivos
 
-El proyecto cuenta con dos carpetas: `api` y `client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
+El proyecto cuenta con dos carpetas: `api` y `client`. En estas carpetas estará el código del backend y el frontend respectivamente.
