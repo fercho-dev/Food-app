@@ -1,11 +1,5 @@
 # Foodie
 
-<p align="right">
-  <img height="200" src="./cooking.png" />
-</p>
-
-## Proyecto
-
 Aplicación de recetas de comida para los amantes de la cocina. La información es consumida de la API [spoonacular](https://spoonacular.com/food-api). Los usuarios también tienen la posibilidad de crear sus propias recetas.
 
 - App creada utilizando React, Redux, Node, Sequelize y Postgresql.
