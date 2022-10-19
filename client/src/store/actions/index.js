@@ -77,7 +77,7 @@ export function communityRecipes() {
             })
         })
         .catch((error) => {
-            alert(`Ups, we couldnt get database recipes\n${error}`);
+            alert(`Ups, we still don't have any community recipes\n${error}`);
             window.location.href = "/recipes";
         })
     }
