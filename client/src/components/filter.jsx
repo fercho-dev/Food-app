@@ -4,7 +4,6 @@ import { filter } from '../store/actions'
 import { fetchDiets } from '../store/actions'
 import '../css/filter.css'
 
-
 export default function Filter() {
     let diets = useSelector((state) => state.diets)
     const dispatch = useDispatch()

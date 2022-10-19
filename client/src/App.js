@@ -8,6 +8,7 @@ import RecipeDetail from './components/recipeDetail';
 import AddRecipe from './components/addRecipe';
 import Navbar from './components/navbar';
 import Filter from './components/filter';
+import Footer from './components/footer';
 import { Route, Switch } from 'react-router-dom';
 
 function App() {
@@ -25,7 +26,6 @@ function App() {
                 <Navbar />
                 <h2>👩🏼‍🍳 Discover recipes created by the community</h2>
                 <div className='searchBarOrderFilter'>
-                    <SearchBar />
                     <Order />
                     <Filter />
                 </div>
@@ -44,6 +44,7 @@ function App() {
                     <Filter />
                 </div>
                 <RecipesContainer />
+                <Footer />
             </Route>
             <Route path='/diets'>
                 <Diet />

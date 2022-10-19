@@ -9,17 +9,20 @@ export default function SearchBar() {
 
     function onSubmit(e) {
         e.preventDefault();
-        dispatch(searchRecipes(search))
+        try {
+            dispatch(searchRecipes(search))
+        } catch(error) {
+            alert('Ups, there is no recipes')
+            window.location.href = `/recipes`;
+        } 
     }
 
     function onInputChange(e) {
         setSearch(e.target.value);
     }
 
-    return <div>
-        <form className='searchBar' onSubmit={onSubmit}>
+    return <form className='searchBar' onSubmit={onSubmit}>
             <input className='searchText' type="text" onChange={onInputChange} placeholder='Cookies'/>
             <input className='searchBtn' type="submit" value="Search"/>
         </form>
-    </div>
 }

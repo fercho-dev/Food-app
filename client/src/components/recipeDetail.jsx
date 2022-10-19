@@ -9,7 +9,7 @@ export default function RecipeDetail() {
     const { id } = useParams()
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/recipes/${id}`)
+        axios.get(`/recipes/${id}`)
         .then((response) => {
             setRecipe(response.data)
         })
@@ -51,18 +51,22 @@ export default function RecipeDetail() {
                     </figure>
                 </div>
                 {
-                    recipe.cooking_steps[0] ?
-                    <details className="recipeDetail-instr">
-                            <summary className="instr-text">
-                                👩🏼‍🍳 Instructions:
-                            </summary>
-                            <ol className="instructions-list">
-                                {recipe.cooking_steps[0].steps.map((step) => {
-                                    return <li key={step.number}>{step.step}</li>
-                                })}
-                            </ol>
-                    </details> :
-                    <p></p>
+                    typeof recipe.cooking_steps !== 'string' ?
+                        recipe.cooking_steps.length > 0 ?
+                            <details className="recipeDetail-instr">
+                                <summary className="instr-text">
+                                    👩🏼‍🍳 Instructions:
+                                </summary>
+                                <ol className="instructions-list">
+                                    {recipe.cooking_steps[0].steps.map((step) => {
+                                        return <li key={step.number}>{step.step}</li>
+                                    })}
+                                </ol>
+                            </details>
+                            :
+                            null
+                        :
+                        <p className="cooking-steps-string">{recipe.cooking_steps}</p>
                 }
             </div> :
             <div>Loading</div>

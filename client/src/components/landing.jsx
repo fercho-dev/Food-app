@@ -21,7 +21,6 @@ export default function Landing() {
                 <img src={next} alt="next icon" />
             </Link>
         </div>
-
         <div className="area" >
             <ul className="circles">
                     <img src={popcorn} alt='popcorn'></img>

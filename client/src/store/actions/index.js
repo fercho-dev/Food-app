@@ -10,7 +10,7 @@ export const RELOAD_RECIPES = 'RELOAD_RECIPES';
 
 export function fetchRecipes() {
     return function(dispatch) {
-        axios.get('http://localhost:3001/recipes')
+        axios.get('/recipes')
         .then((recipes) => {
             dispatch({
                 type: FETCH_RECIPES,
@@ -25,7 +25,7 @@ export function fetchRecipes() {
 
 export function searchRecipes(search) {
     return function(dispatch) {
-        axios.get(`http://localhost:3001/recipes/?search=${search}`)
+        axios.get(`/recipes/?search=${search}`)
         .then((recipes) => {
             dispatch({
                 type: SEARCH_RECIPES,
@@ -40,7 +40,7 @@ export function searchRecipes(search) {
 
 export function fetchDiets() {
     return function(dispatch) {
-        axios.get('http://localhost:3001/diets')
+        axios.get('/diets')
         .then((diets) => {
             dispatch({
                 type: FETCH_DIETS,
@@ -69,7 +69,7 @@ export function filter(filter) {
 
 export function communityRecipes() {
     return function(dispatch) {
-        axios.get('http://localhost:3001/recipes/db')
+        axios.get('/recipes/db')
         .then((recipes) => {
             dispatch({
                 type: COMMUNITY,

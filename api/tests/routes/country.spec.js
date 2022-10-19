@@ -2,11 +2,12 @@
 const { expect } = require('chai');
 const session = require('supertest-session');
 const app = require('../../src/app.js');
-const { Recipe, conn } = require('../../src/db.js');
+const { Recipes, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const recipe = {
   name: 'Milanea a la napolitana',
+  description: 'deliciosa milanesa'
 };
 
 describe('Recipe routes', () => {
@@ -14,8 +15,8 @@ describe('Recipe routes', () => {
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   }));
-  beforeEach(() => Recipe.sync({ force: true })
-    .then(() => Recipe.create(recipe)));
+  beforeEach(() => Recipes.sync({ force: true })
+    .then(() => Recipes.create(recipe)));
   describe('GET /recipes', () => {
     it('should get 200', () =>
       agent.get('/recipes').expect(200)

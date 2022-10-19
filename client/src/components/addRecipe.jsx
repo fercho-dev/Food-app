@@ -107,7 +107,7 @@ export default function AddRecipe() {
         e.preventDefault()
         try {
             let defaultImage = 'https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-            let recipeCreated = await axios.post('http://localhost:3001/recipes', {
+            let recipeCreated = await axios.post('/recipes', {
                 name: inputs.name,
                 description: inputs.description,
                 health_score: +inputs.healthScore,
@@ -116,12 +116,12 @@ export default function AddRecipe() {
             })
             const { id } = recipeCreated.data
             for(let diet in dietsSelected) {
-                let response = await axios.get(`http://localhost:3001/diets/${diet}`)
+                let response = await axios.get(`/diets/${diet}`)
                 let dietId = response.data[0].id
-                await axios.post(`http://localhost:3001/recipes/${id}/${dietId}`)
+                await axios.post(`/recipes/${id}/${dietId}`)
             }
             alert('Yeah, your recipe was succesfully created')
-            window.location.href = "/recipes";
+            window.location.href = `/recipes/${id}`;
         } catch(error) {
             alert(`Ups, something went wrong. Try again.\n${error}`)
         }
@@ -132,7 +132,7 @@ export default function AddRecipe() {
     }
 
     function addDiet() {
-        axios.post('http://localhost:3001/diets', {name: newDietInput})
+        axios.post('/diets', {name: newDietInput})
         .then((response) => {
             dispatch(fetchDiets())
         })

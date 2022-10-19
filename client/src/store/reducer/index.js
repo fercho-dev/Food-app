@@ -74,9 +74,15 @@ export default function reducer(state = initialState, action) {
                 filteredRecipes: action.payload
             }
         case SEARCH_RECIPES:
+            if(action.payload.length > 0) {
+                return {
+                    ...state,
+                    filteredRecipes: action.payload
+                }
+            }
+            alert('Ups, there are no recipes with that name')
             return {
-                ...state,
-                filteredRecipes: action.payload
+                ...state
             }
         case FETCH_DIETS:
             return {
