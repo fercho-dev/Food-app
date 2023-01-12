@@ -123,7 +123,7 @@ export default function AddRecipe() {
             alert('Yeah, your recipe was succesfully created')
             window.location.href = `/recipes/${id}`;
         } catch(error) {
-            alert(`Ups, something went wrong. Try again.\n${error}`)
+            alert(`Ups, seems like we cannot create new recipes at this moment.\n${error}`)
         }
     }
 

@@ -1,8 +1,9 @@
 const { Router, response } = require('express');
 const axios = require('axios')
-const { Recipes, Diets } = require('../db')
+// const { Recipes, Diets } = require('../db')
+require('dotenv').config();
 const { API_KEY } = process.env;
-const { Op } = require('sequelize')
+// const { Op } = require('sequelize')
 const express = require('express')
 
 
@@ -11,28 +12,11 @@ router.use(express.json());
 
 // get all recipes || or search
 router.get('/', (req, res, next) => {
-    let apiRecipesPromise = axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
-
-    let searchQuery = req.query.search
-    let dbRecipesPromise
-    if(searchQuery) {
-        dbRecipesPromise = Recipes.findAll({
-            include: Diets,
-            where: {
-                name: {
-                    [Op.iLike]: "%" + searchQuery + "%"
-                }
-            }
-        })
-    } else {
-        dbRecipesPromise = Recipes.findAll({ include: Diets })
-    }
-    
-
-    Promise.all([apiRecipesPromise, dbRecipesPromise])
-    .then((response) => {
-        const [apiRecipes, dbRecipes] = response
-        let filteredApiRecipes
+    axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
+    .then(resp => {
+        let searchQuery = req.query.search;
+        let apiRecipes = resp;
+        let filteredApiRecipes;
         if(searchQuery) {
             filteredApiRecipes = apiRecipes.data.results.filter(recipe =>
                 recipe.title.toLowerCase().includes(searchQuery)
@@ -57,26 +41,73 @@ router.get('/', (req, res, next) => {
                 }  
             })
         }
-        let filteredDbRecipes = dbRecipes.map((recipe) => {
-            return {
-                id: recipe.id,
-                name: recipe.name,
-                health_score: recipe.health_score,
-                image: recipe.image,
-                diets: recipe.diets.map((diet) => {
-                    return diet.name
-                })
-            }
-        })
-        let allRecipes = [...filteredApiRecipes, ...filteredDbRecipes]
-        if(allRecipes.length === 0) {
-            return res.status(204).send(allRecipes)
-        }
-        res.status(200).send(allRecipes)
+        res.status(200).send(filteredApiRecipes);
     })
     .catch((error) => {
         next(error)
     })
+
+    // let searchQuery = req.query.search
+    // let dbRecipesPromise
+    // if(searchQuery) {
+    //     dbRecipesPromise = Recipes.findAll({
+    //         include: Diets,
+    //         where: {
+    //             name: {
+    //                 [Op.iLike]: "%" + searchQuery + "%"
+    //             }
+    //         }
+    //     })
+    // } else {
+    //     dbRecipesPromise = Recipes.findAll({ include: Diets })
+    // }
+    
+
+    // Promise.all([apiRecipesPromise])
+    // .then((response) => {
+    //     const [apiRecipes] = response
+    //     let filteredApiRecipes
+    //     if(searchQuery) {
+    //         filteredApiRecipes = apiRecipes.data.results.filter(recipe =>
+    //             recipe.title.toLowerCase().includes(searchQuery)
+    //         )
+    //         filteredApiRecipes = filteredApiRecipes.map((recipe) => {
+    //             return {
+    //                 id: recipe.id,
+    //                 name: recipe.title.toLowerCase(),
+    //                 health_score: recipe.healthScore,
+    //                 image: recipe.image,
+    //                 diets: recipe.diets
+    //             }
+    //         })
+    //     } else {
+    //         filteredApiRecipes = apiRecipes.data.results.map((recipe) => {
+    //             return {
+    //                 id: recipe.id,
+    //                 name: recipe.title.toLowerCase(),
+    //                 health_score: recipe.healthScore,
+    //                 image: recipe.image,
+    //                 diets: recipe.diets
+    //             }  
+    //         })
+    //     }
+    //     let filteredDbRecipes = dbRecipes.map((recipe) => {
+    //         return {
+    //             id: recipe.id,
+    //             name: recipe.name,
+    //             health_score: recipe.health_score,
+    //             image: recipe.image,
+    //             diets: recipe.diets.map((diet) => {
+    //                 return diet.name
+    //             })
+    //         }
+    //     })
+    //     let allRecipes = [...filteredApiRecipes, ...filteredDbRecipes]
+    //     if(allRecipes.length === 0) {
+    //         return res.status(204).send(allRecipes)
+    //     }
+    //     res.status(200).send(allRecipes)
+    // })
 })
 
 // get db recipes

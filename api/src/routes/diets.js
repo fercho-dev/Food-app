@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const { Diets, Recipes } = require('../db')
-const { Op } = require('sequelize')
+// const { Diets, Recipes } = require('../db')
+// const { Op } = require('sequelize')
 const axios = require('axios')
 
 
@@ -9,13 +9,14 @@ const router = Router();
 // get all diets
 router.get('/', async (req, res, next) => {
     try {
-        const dietsRes = await Diets.findAll({ include: Recipes })
-        if(dietsRes.length === 0) {
-            let dietsCreated = await axios.post('http://localhost:3001/diets/init')
-            res.status(200).send(dietsCreated.data)
-        } else {
-            res.status(200).send(dietsRes)
-        }
+        // const dietsRes = await Diets.findAll({ include: Recipes })
+        // if(dietsRes.length === 0) {
+        //     let dietsCreated = await axios.post('http://localhost:3001/diets/init')
+        //     res.status(200).send(dietsCreated.data)
+        // } else {
+        //     res.status(200).send(dietsRes)
+        // }
+        res.status(200).send(['gluten free', 'ketogenic', 'lacto ovo vegetarian', 'vegan', 'paleolithic', 'primal', 'whole 30', 'dairy free']);
     } catch(error) {
         next(error)
     }
