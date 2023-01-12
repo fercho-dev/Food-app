@@ -16,7 +16,41 @@ router.get('/', async (req, res, next) => {
         // } else {
         //     res.status(200).send(dietsRes)
         // }
-        res.status(200).send(['gluten free', 'ketogenic', 'lacto ovo vegetarian', 'vegan', 'paleolithic', 'primal', 'whole 30', 'dairy free']);
+        const diets = [
+            {
+                id: 0,
+                name: 'gluten free'
+            },
+            {
+                id: 1,
+                name: 'ketogenic'
+            },
+            {
+                id: 2,
+                name: 'lacto ovo vegetarian'
+            },
+            {
+                id: 3,
+                name: 'vegan'
+            },
+            {
+                id: 4,
+                name: 'paleolithic'
+            },
+            {
+                id: 5,
+                name: 'primal'
+            },
+            {
+                id: 6,
+                name: 'whole 30'
+            },
+            {
+                id: 7,
+                name: 'dairy free'
+            },
+        ]
+        res.status(200).send(diets);
     } catch(error) {
         next(error)
     }
